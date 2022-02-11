@@ -1,0 +1,18 @@
+{
+    "_id" : "dbrs",
+    "members" : [
+        {
+            "_id" : 0,
+            "host" : "mongo_master:27017",
+            "priority" : 10
+        },
+        {
+            "_id" : 1,
+            "host" : "mongo_slave_1:27017"
+        },
+        {
+            "_id" : 2,
+            "host" : "mongo_slave_2:27017"
+        }
+    ]
+}

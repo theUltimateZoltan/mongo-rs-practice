@@ -1,0 +1,5 @@
+data
+local-env
+include
+.pytest_cache
+.vscode

@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  mongo-master:
+    image: mongo:latest
+    container_name: mongo_master
+    volumes:
+      - ./data/master:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - mongoVLAN
+    command: mongod --replSet dbrs & mongo --eval rs.initiate(`cat rs_config.json`)
+    stdin_open: true
+    tty: true
+
+  mongo-slave-1:
+    image: mongo:latest
+    container_name: mongo_slave_1
+    volumes:
+      - ./data/slave_1:/data/db
+    ports:
+      - 27018:27017
+    networks:
+      - mongoVLAN
+    command: mongod --replSet dbrs
+    stdin_open: true
+    tty: true
+
+  mongo-slave-2:
+    image: mongo:latest
+    container_name: mongo_slave_2
+    volumes:
+      - ./data/slave_2:/data/db
+    ports:
+      - 27019:27017
+    networks:
+      - mongoVLAN
+    command: mongod --replSet dbrs
+    stdin_open: true
+    tty: true
+
+networks:
+  mongoVLAN:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.0.0/16
