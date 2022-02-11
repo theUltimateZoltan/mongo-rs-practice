@@ -47,5 +47,5 @@ jobs:
           context: .
           push: true
           tags: |
-            eladlevy14/tdd_image:latest
-            eladlevy14/tdd_image:${{ steps.last_release.outputs.tag_name }}
+            eladlevy14/mongo_ingress:latest
+            eladlevy14/mongo_ingress:${{ steps.last_release.outputs.tag_name }}

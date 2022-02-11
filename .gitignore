@@ -3,3 +3,6 @@ local-env
 include
 .pytest_cache
 .vscode
+*.pyc
+__pycache__
+__pycache__\*
