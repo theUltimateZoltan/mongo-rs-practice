@@ -7,8 +7,6 @@ services:
       - ./data/master:/data/db
     ports:
       - 27017:27017
-    networks:
-      - mongoVLAN
     command: mongod --replSet dbrs & mongo --eval rs.initiate(`cat rs_config.json`)
     stdin_open: true
     tty: true
@@ -20,8 +18,6 @@ services:
       - ./data/slave_1:/data/db
     ports:
       - 27018:27017
-    networks:
-      - mongoVLAN
     command: mongod --replSet dbrs
     stdin_open: true
     tty: true
@@ -33,15 +29,6 @@ services:
       - ./data/slave_2:/data/db
     ports:
       - 27019:27017
-    networks:
-      - mongoVLAN
     command: mongod --replSet dbrs
     stdin_open: true
     tty: true
-
-networks:
-  mongoVLAN:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.0.0/16
