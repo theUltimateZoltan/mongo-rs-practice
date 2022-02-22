@@ -1,6 +1,5 @@
-import pytest
-from db_interface import DoesNothing
+from db_interface import MongoInterface
 
 def test_nothing():
-    n = DoesNothing()
-    n.do_nothing()
+    mongo = MongoInterface()
+    
