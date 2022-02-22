@@ -1,3 +1,6 @@
-class DoesNothing:
-    def do_nothing(self):
+class MongoInterface:
+    def __init__(self, client) -> None:
+        pass
+
+    def insert(self, record) -> None:
         pass
