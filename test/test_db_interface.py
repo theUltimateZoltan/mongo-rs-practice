@@ -1,11 +1,17 @@
-from unittest.mock import MagicMock
 from pytest import fixture
-from db_interface import MongoInterface
+from db_interface import MongoCollectionInterface, DB_NAME
+import mongomock
 
 @fixture
-def fake_client() -> MagicMock:
-    return MagicMock(MongoClient)
+def fake_client():
+    return mongomock.MongoClient()
 
-def test_insert(fake_client: MagicMock):
-    mongo = MongoInterface(fake_client)
-    mongo.insert({"bob", 1})
+def test_connection(fake_client):
+    MongoCollectionInterface("test", client=fake_client)
+
+def test_insert(fake_client):
+    mongo = MongoCollectionInterface("test", fake_client)
+    id = mongo.insert({"name": "bob"})
+    result=fake_client[DB_NAME]["test"].find_one(id)
+    assert result
+    assert result["name"] == "bob"
