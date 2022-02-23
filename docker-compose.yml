@@ -10,8 +10,6 @@ services:
     networks:
       - mongoVLAN
     command: mongod --replSet dbrs & mongo --eval rs.initiate(`cat rs_config.json`)
-    stdin_open: true
-    tty: true
 
   mongo-slave-1:
     image: mongo:latest
@@ -23,8 +21,6 @@ services:
     networks:
       - mongoVLAN
     command: mongod --replSet dbrs
-    stdin_open: true
-    tty: true
 
   mongo-slave-2:
     image: mongo:latest
@@ -36,6 +32,13 @@ services:
     networks:
       - mongoVLAN
     command: mongod --replSet dbrs
+
+  mongo-interface:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - mongoVLAN
     stdin_open: true
     tty: true
 

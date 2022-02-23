@@ -22,8 +22,8 @@ class MongoCollectionInterface:
     def delete_by_id(self, record_id: ObjectId) -> None:
         self.__collection.delete_one({'_id': record_id})
 
-    def update_by_id(self, record_id: ObjectId, updated_fields:dict) -> None:
+    def update_by_id(self, record_id: ObjectId, updated_fields: dict) -> None:
         self.__collection.update_one({'_id': record_id}, {"$set": updated_fields})
 
-    def get_first_id_for_properties(self, properties_to_search) -> ObjectId:
+    def get_first_id_for_properties(self, properties_to_search: dict) -> ObjectId:
         return self.__collection.find_one(properties_to_search)["_id"]
