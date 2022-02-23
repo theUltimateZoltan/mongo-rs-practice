@@ -24,7 +24,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r dev_requirements.txt
-        source ./setup_testing.sh
+
+    - name: Setup before testing
+      run: |
+        export PYTHONPATH="${PWD}/src"
+        echo "PYTHONPATH is ${PYTHONPATH}"
 
     - name: Lint with flake8
       run: |
