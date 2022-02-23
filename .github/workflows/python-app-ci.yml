@@ -25,11 +25,6 @@ jobs:
         pip install -r requirements.txt
         pip install -r dev_requirements.txt
 
-    - name: Setup before testing
-      run: |
-        export PYTHONPATH="${PWD}/src"
-        echo "PYTHONPATH is ${PYTHONPATH}"
-
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -38,7 +33,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        python -m pytest
         coverage run -m pytest
         coverage report | tee output.txt
     - name: Post coverage to PR comments
