@@ -16,7 +16,7 @@ class MongoCollectionInterface:
     def __default_client() -> MongoClient:
         return MongoClient(DB_HOST, DB_PORT, replicaset=DB_REPLICA_SET)
 
-    def insert(self, record) -> ObjectId:
+    def insert(self, record: dict) -> ObjectId:
         return self.__collection.insert_one(record).inserted_id
     
     def delete_by_id(self, record_id: ObjectId) -> None:
@@ -27,3 +27,10 @@ class MongoCollectionInterface:
 
     def get_first_id_for_properties(self, properties_to_search: dict) -> ObjectId:
         return self.__collection.find_one(properties_to_search)["_id"]
+
+    def save_object(self, item: object):
+        self.insert(item.__dict__)
+
+    def recover_object_dict(self, id: ObjectId) -> dict:
+        return self.__collection.find_one({"_id": id})
+
